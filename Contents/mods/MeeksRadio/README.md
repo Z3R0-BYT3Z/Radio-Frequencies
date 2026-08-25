@@ -2,7 +2,7 @@
 
 Radio Frequencies is a server-authoritative music, announcement, emergency-alert, lore, event, and community broadcast system for Project Zomboid Build 42 multiplayer servers.
 
-## Version 0.11.1
+## Version 0.11.2
 
 - Press F7 while carrying, standing near, or using a tuned radio to open the interface.
 - Listener View provides readable broadcast history, approved tracks, favorites, and player requests.
@@ -14,7 +14,7 @@ Radio Frequencies is a server-authoritative music, announcement, emergency-alert
 
 ## Installation
 
-Add Workshop item `3785340353` and Mod ID `MeeksRadio` to the server. Restart the client and server after updating because version 0.11.1 uses protocol 8 and intentionally rejects older copies.
+Add Workshop item `3785340353` and Mod ID `MeeksRadio` to the server. Restart the client and server after updating. Version 0.11.2 retains protocol 8 and includes the Build 42 custom-sandbox format correction.
 
 ## Compatibility
 
