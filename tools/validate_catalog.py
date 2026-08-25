@@ -7,6 +7,10 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 MOD = ROOT / "Contents/mods/MeeksRadio"
 BUILD = MOD / "42"
+EXPECTED_VERSION = "0.11.2"
+EXPECTED_MOD_ID = "MeeksRadio"
+EXPECTED_PROTOCOL = 8
+EXPECTED_STATIONS = {102800: "Meeks FM", 104600: "Protocol Radio", 107900: "Emergency Override"}
 CATALOG = BUILD / "media/lua/shared/MeeksRadio/Catalog.lua"
 SOUNDS = BUILD / "media/scripts/MeeksRadio_Sounds.txt"
 AUDIO = BUILD / "media/sound/MeeksRadio"
@@ -80,15 +84,38 @@ for path, token in ((CLIENT, '"radioBroadcast"'), (SERVER, '"radioBroadcast"'), 
     if path.is_file() and token not in path.read_text(encoding="utf-8"):
         errors.append(f"broadcast protocol token missing from {path.relative_to(ROOT)}")
 
-if CONFIG.is_file() and not re.search(r"\bprotocolVersion\s*=\s*6\b", CONFIG.read_text(encoding="utf-8")):
-    errors.append("protocolVersion is not 6")
+if CONFIG.is_file():
+    config_text = CONFIG.read_text(encoding="utf-8")
+    if not re.search(rf"\bprotocolVersion\s*=\s*{EXPECTED_PROTOCOL}\b", config_text):
+        errors.append(f"protocolVersion is not {EXPECTED_PROTOCOL}")
+    for frequency, name in EXPECTED_STATIONS.items():
+        station_pattern = rf'\[{frequency}\]\s*=\s*\{{\s*name\s*=\s*"{re.escape(name)}"'
+        if not re.search(station_pattern, config_text):
+            errors.append(f"configured station changed or is missing: {name} ({frequency})")
 
-build_info = BUILD / "mod.info"
-if build_info.is_file() and "version=0.9.1" not in build_info.read_text(encoding="utf-8"):
-    errors.append("Build 42 mod.info version is not 0.9.1")
-root_info = MOD / "mod.info"
-if root_info.is_file() and "version=0.9.1" not in root_info.read_text(encoding="utf-8"):
-    errors.append("root mod.info version is not 0.9.1")
+for label, info_path in (("Build 42", BUILD / "mod.info"), ("root", MOD / "mod.info")):
+    if info_path.is_file():
+        info_text = info_path.read_text(encoding="utf-8")
+        if f"id={EXPECTED_MOD_ID}" not in info_text:
+            errors.append(f"{label} mod.info ID is not {EXPECTED_MOD_ID}")
+        if f"version={EXPECTED_VERSION}" not in info_text:
+            errors.append(f"{label} mod.info version is not {EXPECTED_VERSION}")
+
+sandbox_options = BUILD / "media/sandbox-options.txt"
+if not sandbox_options.is_file() or not re.search(
+    r"^VERSION\s*=\s*2,\s*$", sandbox_options.read_text(encoding="utf-8"), re.MULTILINE
+):
+    errors.append("Build 42 sandbox-options schema marker is not VERSION = 2,")
+
+workshop = ROOT / "workshop.txt"
+if workshop.is_file():
+    workshop_text = workshop.read_text(encoding="utf-8")
+    if "id=3785340353" not in workshop_text:
+        errors.append("Workshop ID is not 3785340353")
+    if "Mod ID: MeeksRadio" not in workshop_text:
+        errors.append("Workshop metadata does not advertise Mod ID MeeksRadio")
+    if "Meeks FM 102.8 MHz" not in workshop_text:
+        errors.append("Workshop metadata does not advertise Meeks FM 102.8 MHz")
 
 if errors:
     print("\n".join(errors), file=sys.stderr)
