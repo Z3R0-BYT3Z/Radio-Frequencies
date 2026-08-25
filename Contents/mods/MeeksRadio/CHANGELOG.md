@@ -1,5 +1,11 @@
 # Radio Frequencies changelog
 
+## 0.11.2
+
+- Updated the custom sandbox-options schema marker for current Build 42 parsing.
+- Audited client/server permissions, protocol checks, request validation, package structure, and manifests.
+- No save-data keys, station state, catalog IDs, or client/server protocol values were changed.
+
 ## 0.11.1
 
 - Fixed Player Request so the selected track is submitted to the station currently open in Listener View.

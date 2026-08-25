@@ -1,4 +1,4 @@
-v0.11.1 - Player Request fix and Command Center redesign
+v0.11.2 - Build 42 sandbox-options compatibility and package audit
 
 - Redesigned Listener, Station, and Admin screens to match Survivor League.
 - Added a consistent status header, navigation, bordered panels, footer, and close controls.

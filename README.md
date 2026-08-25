@@ -2,7 +2,7 @@
 
 Server-authoritative music, announcements, emergency alerts, lore, events, and community updates delivered through configured Project Zomboid radio frequencies.
 
-Current mod version: **0.9.1** (protocol v6, catalog `3-ghosted`).
+Current mod version: **0.11.2** (protocol v8, catalog `3-ghosted`).
 
 ## Status
 
@@ -118,6 +118,18 @@ gh repo create meeks-radio --source=. --private --push
 Code is provided under the MIT License. This repository currently bundles the Radio Frequencies test signal and `Ghosted` audio used by the catalog. Any additional audio requires explicit distribution rights; the MIT code license does not automatically grant rights to third-party audio.
 
 ## Changelog
+
+### 0.11.2
+
+- updates the custom sandbox-options schema marker for current Build 42 parsing;
+- synchronizes both manifests and package documentation with the audited release;
+- retains protocol v8, save-data keys, station state, catalog IDs, and configured frequencies.
+
+### 0.11.1
+
+- fixes Player Request so the selected track is submitted to the station open in Listener View;
+- preserves tuned-receiver requirements for playback while allowing validated requests;
+- retains the Command Center interface shared with Survivor League.
 
 ### 0.9.1
 
