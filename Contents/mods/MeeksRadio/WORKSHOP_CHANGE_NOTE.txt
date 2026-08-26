@@ -7,3 +7,4 @@ v0.11.2 - Build 42 sandbox-options compatibility and package audit
 - Preserved playback, requests, favorites, queue controls, DJ permissions, emergency overrides, and broadcasts.
 - Updated client/server compatibility protocol; restart both the server and game after updating.
 - Fixed Player Request when Listener View is opened without an actively detected receiver; music playback still requires a powered tuned radio.
+v0.12.0: Global in-game chat broadcasts, persistent station history, optional overhead text disabled by default, anonymous system announcements, and Discord relay markers. Client/server protocol 9 requires matching installs.

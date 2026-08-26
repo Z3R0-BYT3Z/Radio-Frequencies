@@ -1,5 +1,13 @@
 # Radio Frequencies changelog
 
+## 0.12.0
+
+- Broadcasts now target every player's in-game server chat by default.
+- Added optional overhead broadcast text, disabled by default.
+- Added `[MeeksRadioBroadcast]` relay markers for Discord forwarding.
+- Preserved persistent per-station broadcast history without displaying the admin username.
+- Bumped the client/server protocol to reject mixed installations.
+
 ## 0.11.2
 
 - Updated the custom sandbox-options schema marker for current Build 42 parsing.

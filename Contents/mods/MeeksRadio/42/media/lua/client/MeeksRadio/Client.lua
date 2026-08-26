@@ -201,15 +201,13 @@ local function showRadioBroadcast(args)
     local kind = string.upper(kindKey)
     local message = "[RADIO " .. kind .. "] " .. tostring(args.text or "")
     local tuned = activeRadioFrequency(player, true) == frequency
-    local serverWide = kindKey == "announcement" or kindKey == "emergency" or kindKey == "community"
-    if not tuned and not serverWide then return end
+    if Config.showGlobalChatBroadcasts ~= true and not tuned then return end
     print("[Radio Frequencies] " .. message)
-    showServerChatMessage(message)
-    if kindKey == "emergency" and tuned and HaloTextHelper then
+    if Config.showGlobalChatBroadcasts == true then showServerChatMessage(message) end
+    if Config.showOverheadBroadcasts == true and tuned and HaloTextHelper then
         pcall(function()
-            if HaloTextHelper.addBadText then
-                HaloTextHelper.addBadText(player, message)
-            end
+            if kindKey == "emergency" and HaloTextHelper.addBadText then HaloTextHelper.addBadText(player, message)
+            elseif HaloTextHelper.addText then HaloTextHelper.addText(player, message) end
         end)
     end
 end

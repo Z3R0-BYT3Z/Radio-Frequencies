@@ -2,7 +2,7 @@ MeeksRadio = MeeksRadio or {}
 
 MeeksRadio.Config = {
     module = "MeeksRadio",
-    protocolVersion = 8,
+    protocolVersion = 9,
     -- Fallback when the Sandbox option is unavailable: 1 Project Zomboid,
     -- 2 Meeks Protocol, 3 Military.
     interfaceTheme = 2,
@@ -19,6 +19,11 @@ MeeksRadio.Config = {
     broadcastCooldownSeconds = 10,
     broadcastDisplaySeconds = 12,
     broadcastHistoryLimit = 20,
+    -- Broadcast presentation. Chat is global; overhead text is intentionally
+    -- opt-in so announcements are not attributed to the receiving character.
+    showGlobalChatBroadcasts = true,
+    showOverheadBroadcasts = false,
+    discordRelayLogging = true,
     maxRequestsPerStation = 30,
     worldRadioScanRadius = 2,
     -- The first powered receiver found wins when several are available.

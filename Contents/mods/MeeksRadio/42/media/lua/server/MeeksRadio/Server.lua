@@ -207,6 +207,9 @@ local function issueBroadcast(s, kind, text, author, scheduledId)
     table.insert(s.bulletins, 1, bulletin)
     local limit = math.max(1, math.floor(tonumber(Config.broadcastHistoryLimit) or 20))
     while #s.bulletins > limit do table.remove(s.bulletins) end
+    if Config.discordRelayLogging == true then
+        print("[MeeksRadioBroadcast] [RADIO " .. string.upper(tostring(kind)) .. "] " .. tostring(text))
+    end
     sendServerCommand(Config.module, "radioBroadcast", bulletin)
     broadcast(s)
     return true
